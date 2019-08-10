@@ -3,6 +3,7 @@ module TH.LiftType where
 
 import Control.Monad
 import Data.List as L
+import Data.Text
 import Language.Haskell.TH
 
 
@@ -13,6 +14,11 @@ instance LiftType Integer where
   liftType = pure . integerToSym
     where
       integerToSym = LitT . NumTyLit
+
+instance LiftType Text where
+  liftType = pure . txtToSym
+    where
+      txtToSym = LitT . StrTyLit . unpack
 
 instance LiftType Name where
   liftType = conT

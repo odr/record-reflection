@@ -39,9 +39,10 @@ library
       src
   build-depends:
       base >=4.7 && <5
-    , singletons
+    -- , singletons
     , template-haskell
     , lens
+    , text
   default-extensions:
       AllowAmbiguousTypes
     , DataKinds
