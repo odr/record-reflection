@@ -21,7 +21,7 @@ conName
 conName = _RecC . _1 <> _NormalC . _1
 
 {- |
-* for multi-constructor record generate instances for 'TCons' and 'CRecCon'
+* generate instances for 'TCons' and 'CRecCon'
 * for single-constructor record generate instances for 'TFldNum' and 'CRecFld'
 -}
 mkRec :: Name -> DecsQ
@@ -29,7 +29,7 @@ mkRec r = do
   TyConI (toListOf decCons -> cons) <- reify r
   case cons of
     []  -> pure []
-    [c] -> mkOneCon c
+    [c] -> (++) <$> mkManyCons [c] <*> mkOneCon c
     _   -> mkManyCons cons
   where
     decCons = _DataD . _5 . traverse <> _NewtypeD . _5
